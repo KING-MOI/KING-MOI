@@ -11,3 +11,4 @@
 - double-check the retry path behavior
 - considered cleanup logic; parked for now
 - double-check config defaults behavior
+- edge case observed while testing
