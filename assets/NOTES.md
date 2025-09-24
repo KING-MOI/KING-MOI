@@ -69,3 +69,4 @@
 - follow up on ci caching
 - edge case observed while testing
 - considered ci caching; parked for now
+- follow up on config defaults
