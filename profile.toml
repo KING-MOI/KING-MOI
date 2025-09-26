@@ -1,0 +1,10 @@
+name = "Aditya Verma"
+handle = "KING-MOI"
+location = "San Francisco"
+tagline = "building ai agents & devtools"
+
+stack = ["rust", "swift", "typescript"]
+
+[[now]]
+name = "agent runtime"
+desc = "a small, fast runtime for tool-using agents"
