@@ -46,3 +46,4 @@
 - considered config defaults; parked for now
 - edge case observed while testing
 - follow up on cleanup logic
+- double-check cleanup logic behavior
