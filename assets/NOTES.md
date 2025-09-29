@@ -64,3 +64,4 @@
 - double-check docs example behavior
 - follow up on config defaults
 - double-check exit codes behavior
+- considered the macOS build; parked for now
