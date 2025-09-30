@@ -2,3 +2,4 @@
 - slow start observed while testing
 - considered link checker; parked for now
 - edge case observed while testing
+- double-check config defaults behavior
