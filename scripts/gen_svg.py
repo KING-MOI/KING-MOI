@@ -1,10 +1,18 @@
 #!/usr/bin/env python3
 import sys
+import tomllib
+from pathlib import Path
 
+ROOT = Path(__file__).resolve().parent.parent
 WIDTH = 800
 BG = "#0d1117"
 FG = "#e6edf3"
 MUTED = "#7d8590"
+
+
+def load_profile(path=ROOT / "profile.toml"):
+    with open(path, "rb") as f:
+        return tomllib.load(f)
 
 
 def render(profile):
@@ -17,4 +25,4 @@ def render(profile):
 
 
 if __name__ == "__main__":
-    sys.stdout.write(render({"name": "Aditya Verma", "location": "San Francisco", "tagline": "building ai agents & devtools"}))
+    sys.stdout.write(render(load_profile()))
