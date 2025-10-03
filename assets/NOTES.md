@@ -60,3 +60,4 @@
 - double-check the retry path behavior
 - edge case observed while testing
 - follow up on exit codes
+- double-check error messages behavior
