@@ -49,3 +49,4 @@
 - double-check cleanup logic behavior
 - follow up on cleanup logic
 - edge case observed while testing
+- double-check link checker behavior
