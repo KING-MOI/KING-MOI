@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-import sys
 import tomllib
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+OUT = ROOT / "assets" / "readme.svg"
 WIDTH = 800
 BG = "#0d1117"
 FG = "#e6edf3"
@@ -53,5 +53,11 @@ def render(profile):
     )
 
 
+def main():
+    OUT.parent.mkdir(exist_ok=True)
+    OUT.write_text(render(load_profile()))
+    print(f"wrote {OUT.relative_to(ROOT)}")
+
+
 if __name__ == "__main__":
-    sys.stdout.write(render(load_profile()))
+    main()
