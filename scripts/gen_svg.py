@@ -37,8 +37,14 @@ def render(profile):
         text(32, 84, f'{profile["location"]} · {profile["tagline"]}', 14, MUTED),
         text(32, 128, "stack", 12, MUTED),
         *pills(profile["stack"], 32, 140),
+        text(32, 210, "now building", 12, MUTED),
     ]
-    height = 196
+    y = 238
+    for item in profile.get("now", []):
+        body.append(text(32, y, f'▸ {item["name"]}', 14))
+        body.append(text(220, y, item["desc"], 13, MUTED))
+        y += 24
+    height = y + 16
     return (
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{WIDTH}" height="{height}" viewBox="0 0 {WIDTH} {height}">\n'
         f'  <rect width="100%" height="100%" rx="12" fill="{BG}"/>\n'
