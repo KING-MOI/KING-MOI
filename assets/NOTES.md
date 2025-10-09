@@ -23,3 +23,4 @@
 - cache miss observed while testing
 - edge case observed while testing
 - follow up on link checker
+- double-check type narrowing behavior
