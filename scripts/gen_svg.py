@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import tomllib
 from pathlib import Path
+from xml.sax.saxutils import escape
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "assets" / "readme.svg"
@@ -18,7 +19,7 @@ def load_profile(path=ROOT / "profile.toml"):
 
 
 def text(x, y, s, size=14, fill=FG):
-    return f'<text x="{x}" y="{y}" fill="{fill}" font-family="{FONT}" font-size="{size}">{s}</text>'
+    return f'<text x="{x}" y="{y}" fill="{fill}" font-family="{FONT}" font-size="{size}">{escape(s)}</text>'
 
 
 def pills(items, x, y):
