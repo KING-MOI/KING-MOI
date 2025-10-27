@@ -19,3 +19,4 @@
 - considered release checklist; parked for now
 - considered link checker; parked for now
 - double-check cleanup logic behavior
+- follow up on exit codes
