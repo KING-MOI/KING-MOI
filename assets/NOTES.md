@@ -36,3 +36,4 @@
 - slow start observed while testing
 - double-check cleanup logic behavior
 - edge case observed while testing
+- double-check exit codes behavior
