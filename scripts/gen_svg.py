@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
+import json
+import os
 import tomllib
+import urllib.request
 from pathlib import Path
 from xml.sax.saxutils import escape
 
@@ -11,6 +14,20 @@ FG = "#e6edf3"
 MUTED = "#7d8590"
 BORDER = "#30363d"
 FONT = "ui-monospace, SFMono-Regular, Menlo, monospace"
+GRAPHQL = "https://api.github.com/graphql"
+
+
+def graphql(query, variables, token):
+    req = urllib.request.Request(
+        GRAPHQL,
+        data=json.dumps({"query": query, "variables": variables}).encode(),
+        headers={"Authorization": f"bearer {token}", "User-Agent": "readme-svg"},
+    )
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        payload = json.load(resp)
+    if payload.get("errors"):
+        raise RuntimeError(payload["errors"][0]["message"])
+    return payload["data"]
 
 
 def load_profile(path=ROOT / "profile.toml"):
