@@ -35,6 +35,25 @@ def load_profile(path=ROOT / "profile.toml"):
         return tomllib.load(f)
 
 
+REPOS_QUERY = """
+query($login: String!) {
+  user(login: $login) {
+    repositories(first: 100, ownerAffiliations: OWNER) {
+      nodes {
+        languages(first: 10, orderBy: {field: SIZE, direction: DESC}) {
+          edges { size node { name color } }
+        }
+      }
+    }
+  }
+}
+"""
+
+
+def fetch_repos(login, token):
+    return graphql(REPOS_QUERY, {"login": login}, token)["user"]["repositories"]["nodes"]
+
+
 def text(x, y, s, size=14, fill=FG):
     return f'<text x="{x}" y="{y}" fill="{fill}" font-family="{FONT}" font-size="{size}">{escape(s)}</text>'
 
