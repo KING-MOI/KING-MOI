@@ -54,6 +54,19 @@ def fetch_repos(login, token):
     return graphql(REPOS_QUERY, {"login": login}, token)["user"]["repositories"]["nodes"]
 
 
+def top_languages(repos, n=6):
+    totals = {}
+    colors = {}
+    for repo in repos:
+        for edge in repo["languages"]["edges"]:
+            name = edge["node"]["name"]
+            totals[name] = totals.get(name, 0) + edge["size"]
+            colors[name] = edge["node"]["color"]
+    total = sum(totals.values()) or 1
+    ranked = sorted(totals.items(), key=lambda kv: kv[1], reverse=True)[:n]
+    return [(name, size / total, colors[name]) for name, size in ranked]
+
+
 def text(x, y, s, size=14, fill=FG):
     return f'<text x="{x}" y="{y}" fill="{fill}" font-family="{FONT}" font-size="{size}">{escape(s)}</text>'
 
