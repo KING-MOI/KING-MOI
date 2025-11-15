@@ -27,5 +27,23 @@ class RenderTest(unittest.TestCase):
         self.assertIn("San Francisco · agents & devtools <3", texts)
 
 
+def repo(*langs):
+    return {"languages": {"edges": [{"size": s, "node": {"name": n, "color": "#000"}} for n, s in langs]}}
+
+
+class TopLanguagesTest(unittest.TestCase):
+    def test_sums_across_repos_and_ranks(self):
+        repos = [repo(("Rust", 300), ("Swift", 100)), repo(("Swift", 400), ("Go", 200))]
+        got = [(name, round(share, 2)) for name, share, _ in gen_svg.top_languages(repos)]
+        self.assertEqual(got, [("Swift", 0.5), ("Rust", 0.3), ("Go", 0.2)])
+
+    def test_limits_to_n(self):
+        repos = [repo(*[(f"L{i}", i + 1) for i in range(10)])]
+        self.assertEqual(len(gen_svg.top_languages(repos, n=3)), 3)
+
+    def test_no_repos(self):
+        self.assertEqual(gen_svg.top_languages([]), [])
+
+
 if __name__ == "__main__":
     unittest.main()
