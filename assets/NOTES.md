@@ -57,3 +57,4 @@
 - considered the retry path; parked for now
 - considered config defaults; parked for now
 - follow up on type narrowing
+- double-check the retry path behavior
