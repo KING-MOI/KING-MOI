@@ -81,19 +81,34 @@ def pills(items, x, y):
     return out
 
 
-def render(profile):
-    body = [
-        text(32, 56, profile["name"], 24),
-        text(32, 84, f'{profile["location"]} · {profile["tagline"]}', 14, MUTED),
-        text(32, 128, "stack", 12, MUTED),
-        *pills(profile["stack"], 32, 140),
-        text(32, 210, "now building", 12, MUTED),
-    ]
-    y = 238
+def header(profile, y):
+    return [
+        text(32, y + 32, profile["name"], 24),
+        text(32, y + 60, f'{profile["location"]} · {profile["tagline"]}', 14, MUTED),
+    ], 80
+
+
+def stack(profile, y):
+    return [text(32, y + 12, "stack", 12, MUTED), *pills(profile["stack"], 32, y + 24)], 70
+
+
+def now_building(profile, y):
+    out = [text(32, y + 12, "now building", 12, MUTED)]
+    row = y + 40
     for item in profile.get("now", []):
-        body.append(text(32, y, f'▸ {item["name"]}', 14))
-        body.append(text(220, y, item["desc"], 13, MUTED))
-        y += 24
+        out.append(text(32, row, f'▸ {item["name"]}', 14))
+        out.append(text(220, row, item["desc"], 13, MUTED))
+        row += 24
+    return out, row - y
+
+
+def render(profile):
+    body = []
+    y = 24
+    for section in (header, stack, now_building):
+        lines, h = section(profile, y)
+        body += lines
+        y += h
     height = y + 16
     return (
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{WIDTH}" height="{height}" viewBox="0 0 {WIDTH} {height}">\n'
