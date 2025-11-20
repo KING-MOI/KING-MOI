@@ -92,6 +92,30 @@ def stack(profile, y):
     return [text(32, y + 12, "stack", 12, MUTED), *pills(profile["stack"], 32, y + 24)], 70
 
 
+def languages(profile, y):
+    langs = profile.get("languages")
+    if not langs:
+        return [], 0
+    bar_w = WIDTH - 64
+    out = [
+        text(32, y + 12, "top languages", 12, MUTED),
+        f'<clipPath id="bar"><rect x="32" y="{y + 24}" width="{bar_w}" height="8" rx="4"/></clipPath>',
+    ]
+    x = 32.0
+    for name, share, color in langs:
+        w = share * bar_w
+        out.append(f'<rect x="{x:.1f}" y="{y + 24}" width="{w:.1f}" height="8" fill="{color}" clip-path="url(#bar)"/>')
+        x += w
+    col_w = bar_w // 3
+    for i, (name, share, color) in enumerate(langs):
+        cx = 32 + (i % 3) * col_w
+        cy = y + 56 + (i // 3) * 22
+        out.append(f'<circle cx="{cx + 5}" cy="{cy - 4}" r="5" fill="{color}"/>')
+        out.append(text(cx + 16, cy, f"{name} {share * 100:.1f}%", 13))
+    rows = (len(langs) + 2) // 3
+    return out, 48 + rows * 22
+
+
 def now_building(profile, y):
     out = [text(32, y + 12, "now building", 12, MUTED)]
     row = y + 40
@@ -105,7 +129,7 @@ def now_building(profile, y):
 def render(profile):
     body = []
     y = 24
-    for section in (header, stack, now_building):
+    for section in (header, stack, languages, now_building):
         lines, h = section(profile, y)
         body += lines
         y += h
