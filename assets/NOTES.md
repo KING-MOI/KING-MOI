@@ -68,3 +68,4 @@
 - double-check type narrowing behavior
 - follow up on ci caching
 - edge case observed while testing
+- considered ci caching; parked for now
