@@ -35,11 +35,21 @@ def load_profile(path=ROOT / "profile.toml"):
         return tomllib.load(f)
 
 
-REPOS_QUERY = """
+QUERY = """
 query($login: String!) {
   user(login: $login) {
+    contributionsCollection {
+      totalCommitContributions
+      totalPullRequestContributions
+      totalIssueContributions
+      contributionCalendar {
+        totalContributions
+        weeks { contributionDays { date contributionCount } }
+      }
+    }
     repositories(first: 100, ownerAffiliations: OWNER) {
       nodes {
+        stargazerCount
         languages(first: 10, orderBy: {field: SIZE, direction: DESC}) {
           edges { size node { name color } }
         }
@@ -50,8 +60,19 @@ query($login: String!) {
 """
 
 
-def fetch_repos(login, token):
-    return graphql(REPOS_QUERY, {"login": login}, token)["user"]["repositories"]["nodes"]
+def fetch_user(login, token):
+    return graphql(QUERY, {"login": login}, token)["user"]
+
+
+def contribution_stats(user):
+    cc = user["contributionsCollection"]
+    return {
+        "contributions": cc["contributionCalendar"]["totalContributions"],
+        "commits": cc["totalCommitContributions"],
+        "prs": cc["totalPullRequestContributions"],
+        "issues": cc["totalIssueContributions"],
+        "stars": sum(r["stargazerCount"] for r in user["repositories"]["nodes"]),
+    }
 
 
 def top_languages(repos, n=6):
