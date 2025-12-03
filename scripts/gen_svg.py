@@ -113,6 +113,26 @@ def stack(profile, y):
     return [text(32, y + 12, "stack", 12, MUTED), *pills(profile["stack"], 32, y + 24)], 70
 
 
+def stats(profile, y):
+    st = profile.get("stats")
+    if not st:
+        return [], 0
+    cells = [
+        ("contributions", st["contributions"]),
+        ("commits", st["commits"]),
+        ("prs", st["prs"]),
+        ("issues", st["issues"]),
+        ("stars", st["stars"]),
+    ]
+    col_w = (WIDTH - 64) // len(cells)
+    out = [text(32, y + 12, "last year", 12, MUTED)]
+    for i, (label, value) in enumerate(cells):
+        x = 32 + i * col_w
+        out.append(text(x, y + 44, str(value), 22))
+        out.append(text(x, y + 64, label, 12, MUTED))
+    return out, 84
+
+
 def languages(profile, y):
     langs = profile.get("languages")
     if not langs:
@@ -150,7 +170,7 @@ def now_building(profile, y):
 def render(profile):
     body = []
     y = 24
-    for section in (header, stack, languages, now_building):
+    for section in (header, stack, stats, languages, now_building):
         lines, h = section(profile, y)
         body += lines
         y += h
@@ -164,8 +184,12 @@ def render(profile):
 
 
 def main():
+    profile = load_profile()
+    user = fetch_user(profile["handle"], os.environ["GITHUB_TOKEN"])
+    profile["stats"] = contribution_stats(user)
+    profile["languages"] = top_languages(user["repositories"]["nodes"])
     OUT.parent.mkdir(exist_ok=True)
-    OUT.write_text(render(load_profile()))
+    OUT.write_text(render(profile))
     print(f"wrote {OUT.relative_to(ROOT)}")
 
 
