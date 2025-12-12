@@ -13,3 +13,4 @@
 - double-check config defaults behavior
 - edge case observed while testing
 - double-check the macOS build behavior
+- follow up on the retry path
