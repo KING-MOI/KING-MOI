@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import argparse
 import json
 import os
 import tomllib
@@ -8,6 +9,7 @@ from xml.sax.saxutils import escape
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "assets" / "readme.svg"
+SAMPLE = ROOT / "data" / "sample_user.json"
 WIDTH = 800
 BG = "#0d1117"
 FG = "#e6edf3"
@@ -184,8 +186,15 @@ def render(profile):
 
 
 def main():
+    parser = argparse.ArgumentParser(description="render assets/readme.svg")
+    parser.add_argument("--offline", action="store_true", help="use data/sample_user.json instead of the api")
+    args = parser.parse_args()
+
     profile = load_profile()
-    user = fetch_user(profile["handle"], os.environ["GITHUB_TOKEN"])
+    if args.offline:
+        user = json.loads(SAMPLE.read_text())
+    else:
+        user = fetch_user(profile["handle"], os.environ["GITHUB_TOKEN"])
     profile["stats"] = contribution_stats(user)
     profile["languages"] = top_languages(user["repositories"]["nodes"])
     OUT.parent.mkdir(exist_ok=True)
