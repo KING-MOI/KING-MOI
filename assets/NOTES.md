@@ -42,3 +42,4 @@
 - double-check cleanup logic behavior
 - considered type narrowing; parked for now
 - follow up on type narrowing
+- slow start observed while testing
