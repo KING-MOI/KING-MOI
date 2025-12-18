@@ -1,3 +1,4 @@
+import json
 import sys
 import unittest
 import xml.etree.ElementTree as ET
@@ -43,6 +44,16 @@ class TopLanguagesTest(unittest.TestCase):
 
     def test_no_repos(self):
         self.assertEqual(gen_svg.top_languages([]), [])
+
+
+class ContributionStatsTest(unittest.TestCase):
+    def test_sample_user(self):
+        user = json.loads(gen_svg.SAMPLE.read_text())
+        st = gen_svg.contribution_stats(user)
+        self.assertEqual(st["commits"], 1184)
+        self.assertEqual(st["prs"], 96)
+        self.assertEqual(st["issues"], 23)
+        self.assertEqual(st["stars"], 412 + 88 + 61 + 14 + 3)
 
 
 if __name__ == "__main__":
