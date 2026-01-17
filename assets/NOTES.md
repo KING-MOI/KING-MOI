@@ -37,3 +37,4 @@
 - double-check cleanup logic behavior
 - edge case observed while testing
 - double-check exit codes behavior
+- follow up on type narrowing
