@@ -73,3 +73,4 @@
 - slow start observed while testing
 - double-check the retry path behavior
 - exit codes while testing
+- docs example while testing
