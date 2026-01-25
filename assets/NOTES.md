@@ -72,3 +72,4 @@
 - follow up on config defaults
 - slow start observed while testing
 - double-check the retry path behavior
+- exit codes while testing
