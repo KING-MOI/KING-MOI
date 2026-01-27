@@ -45,3 +45,4 @@
 - slow start observed while testing
 - considered config defaults; parked for now
 - edge case observed while testing
+- follow up on cleanup logic
