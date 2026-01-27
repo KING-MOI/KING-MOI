@@ -44,3 +44,4 @@
 - follow up on type narrowing
 - slow start observed while testing
 - considered config defaults; parked for now
+- edge case observed while testing
