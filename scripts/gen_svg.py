@@ -84,7 +84,7 @@ def top_languages(repos, n=6):
         for edge in repo["languages"]["edges"]:
             name = edge["node"]["name"]
             totals[name] = totals.get(name, 0) + edge["size"]
-            colors[name] = edge["node"]["color"]
+            colors[name] = edge["node"]["color"] or MUTED
     total = sum(totals.values()) or 1
     ranked = sorted(totals.items(), key=lambda kv: kv[1], reverse=True)[:n]
     return [(name, size / total, colors[name]) for name, size in ranked]

@@ -42,6 +42,10 @@ class TopLanguagesTest(unittest.TestCase):
         repos = [repo(*[(f"L{i}", i + 1) for i in range(10)])]
         self.assertEqual(len(gen_svg.top_languages(repos, n=3)), 3)
 
+    def test_missing_color_falls_back(self):
+        repos = [{"languages": {"edges": [{"size": 1, "node": {"name": "Nix", "color": None}}]}}]
+        self.assertEqual(gen_svg.top_languages(repos)[0][2], gen_svg.MUTED)
+
     def test_no_repos(self):
         self.assertEqual(gen_svg.top_languages([]), [])
 
