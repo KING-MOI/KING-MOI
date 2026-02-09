@@ -40,3 +40,4 @@
 - follow up on type narrowing
 - considered config defaults; parked for now
 - double-check cleanup logic behavior
+- considered type narrowing; parked for now
