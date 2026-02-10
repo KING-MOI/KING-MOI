@@ -49,7 +49,7 @@ query($login: String!) {
         weeks { contributionDays { date contributionCount } }
       }
     }
-    repositories(first: 100, ownerAffiliations: OWNER) {
+    repositories(first: 100, ownerAffiliations: OWNER, isFork: false) {
       nodes {
         stargazerCount
         languages(first: 10, orderBy: {field: SIZE, direction: DESC}) {
