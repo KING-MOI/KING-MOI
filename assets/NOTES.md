@@ -9,3 +9,4 @@
 - slow start observed while testing
 - flaky test observed while testing
 - double-check the retry path behavior
+- considered cleanup logic; parked for now
