@@ -74,3 +74,4 @@
 - double-check the retry path behavior
 - exit codes while testing
 - docs example while testing
+- double-check config defaults behavior
