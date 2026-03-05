@@ -24,3 +24,4 @@
 - edge case observed while testing
 - follow up on link checker
 - double-check type narrowing behavior
+- edge case observed while testing
