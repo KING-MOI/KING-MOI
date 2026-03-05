@@ -12,3 +12,4 @@
 - considered cleanup logic; parked for now
 - double-check config defaults behavior
 - edge case observed while testing
+- double-check the macOS build behavior
