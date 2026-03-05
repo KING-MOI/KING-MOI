@@ -2,6 +2,7 @@
 import argparse
 import json
 import os
+import sys
 import tomllib
 import urllib.request
 from pathlib import Path
@@ -194,7 +195,10 @@ def main():
     if args.offline:
         user = json.loads(SAMPLE.read_text())
     else:
-        user = fetch_user(profile["handle"], os.environ["GITHUB_TOKEN"])
+        token = os.environ.get("GITHUB_TOKEN")
+        if not token:
+            sys.exit("GITHUB_TOKEN is not set (use --offline to render sample data)")
+        user = fetch_user(profile["handle"], token)
     profile["stats"] = contribution_stats(user)
     profile["languages"] = top_languages(user["repositories"]["nodes"])
     OUT.parent.mkdir(exist_ok=True)
