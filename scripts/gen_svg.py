@@ -91,6 +91,12 @@ def top_languages(repos, n=6):
     return [(name, size / total, colors[name]) for name, size in ranked]
 
 
+def human(n):
+    if n < 1000:
+        return str(n)
+    return f"{n / 1000:.1f}".rstrip("0").rstrip(".") + "k"
+
+
 def text(x, y, s, size=14, fill=FG):
     return f'<text x="{x}" y="{y}" fill="{fill}" font-family="{FONT}" font-size="{size}">{escape(s)}</text>'
 
@@ -131,7 +137,7 @@ def stats(profile, y):
     out = [text(32, y + 12, "last year", 12, MUTED)]
     for i, (label, value) in enumerate(cells):
         x = 32 + i * col_w
-        out.append(text(x, y + 44, str(value), 22))
+        out.append(text(x, y + 44, human(value), 22))
         out.append(text(x, y + 64, label, 12, MUTED))
     return out, 84
 

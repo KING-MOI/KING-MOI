@@ -60,5 +60,12 @@ class ContributionStatsTest(unittest.TestCase):
         self.assertEqual(st["stars"], 412 + 88 + 61 + 14 + 3)
 
 
+class HumanTest(unittest.TestCase):
+    def test_formats(self):
+        cases = {0: "0", 999: "999", 1000: "1k", 1184: "1.2k", 12500: "12.5k"}
+        for n, want in cases.items():
+            self.assertEqual(gen_svg.human(n), want)
+
+
 if __name__ == "__main__":
     unittest.main()
