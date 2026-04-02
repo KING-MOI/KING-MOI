@@ -60,6 +60,18 @@ class ContributionStatsTest(unittest.TestCase):
         self.assertEqual(st["stars"], 412 + 88 + 61 + 14 + 3)
 
 
+def weeks(*counts):
+    return [{"contributionDays": [{"date": "", "contributionCount": c} for c in counts]}]
+
+
+class StreakTest(unittest.TestCase):
+    def test_counts_trailing_run(self):
+        self.assertEqual(gen_svg.current_streak(weeks(3, 0, 1, 2, 5)), 3)
+
+    def test_zero_when_no_contributions(self):
+        self.assertEqual(gen_svg.current_streak(weeks(0, 0, 0)), 0)
+
+
 class HumanTest(unittest.TestCase):
     def test_formats(self):
         cases = {0: "0", 999: "999", 1000: "1k", 1184: "1.2k", 12500: "12.5k"}

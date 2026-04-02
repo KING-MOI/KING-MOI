@@ -67,6 +67,16 @@ def fetch_user(login, token):
     return graphql(QUERY, {"login": login}, token)["user"]
 
 
+def current_streak(weeks):
+    days = [d["contributionCount"] for w in weeks for d in w["contributionDays"]]
+    streak = 0
+    for count in reversed(days):
+        if count == 0:
+            break
+        streak += 1
+    return streak
+
+
 def contribution_stats(user):
     cc = user["contributionsCollection"]
     return {
@@ -75,6 +85,7 @@ def contribution_stats(user):
         "prs": cc["totalPullRequestContributions"],
         "issues": cc["totalIssueContributions"],
         "stars": sum(r["stargazerCount"] for r in user["repositories"]["nodes"]),
+        "streak": current_streak(cc["contributionCalendar"]["weeks"]),
     }
 
 
@@ -132,6 +143,7 @@ def stats(profile, y):
         ("prs", st["prs"]),
         ("issues", st["issues"]),
         ("stars", st["stars"]),
+        ("day streak", st["streak"]),
     ]
     col_w = (WIDTH - 64) // len(cells)
     out = [text(32, y + 12, "last year", 12, MUTED)]
