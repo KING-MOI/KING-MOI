@@ -69,6 +69,8 @@ def fetch_user(login, token):
 
 def current_streak(weeks):
     days = [d["contributionCount"] for w in weeks for d in w["contributionDays"]]
+    if days and days[-1] == 0:
+        days.pop()
     streak = 0
     for count in reversed(days):
         if count == 0:

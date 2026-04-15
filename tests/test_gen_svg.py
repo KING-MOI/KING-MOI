@@ -68,6 +68,9 @@ class StreakTest(unittest.TestCase):
     def test_counts_trailing_run(self):
         self.assertEqual(gen_svg.current_streak(weeks(3, 0, 1, 2, 5)), 3)
 
+    def test_empty_today_does_not_break_streak(self):
+        self.assertEqual(gen_svg.current_streak(weeks(0, 4, 2, 0)), 2)
+
     def test_zero_when_no_contributions(self):
         self.assertEqual(gen_svg.current_streak(weeks(0, 0, 0)), 0)
 
