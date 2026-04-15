@@ -70,3 +70,4 @@
 - edge case observed while testing
 - considered ci caching; parked for now
 - follow up on config defaults
+- slow start observed while testing
