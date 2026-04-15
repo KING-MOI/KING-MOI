@@ -67,3 +67,4 @@
 - considered the macOS build; parked for now
 - double-check type narrowing behavior
 - follow up on ci caching
+- edge case observed while testing
