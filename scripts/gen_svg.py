@@ -111,7 +111,7 @@ def human(n):
 
 
 def text(x, y, s, size=14, fill=FG):
-    return f'<text x="{x}" y="{y}" fill="{fill}" font-family="{FONT}" font-size="{size}">{escape(s)}</text>'
+    return f'<text x="{x}" y="{y}" fill="{fill}" font-size="{size}">{escape(s)}</text>'
 
 
 def pills(items, x, y):
@@ -199,7 +199,7 @@ def render(profile):
         y += h
     height = y + 16
     return (
-        f'<svg xmlns="http://www.w3.org/2000/svg" width="{WIDTH}" height="{height}" viewBox="0 0 {WIDTH} {height}">\n'
+        f'<svg xmlns="http://www.w3.org/2000/svg" width="{WIDTH}" height="{height}" viewBox="0 0 {WIDTH} {height}" font-family="{FONT}">\n'
         f'  <rect width="100%" height="100%" rx="12" fill="{BG}"/>\n'
         + "".join(f"  {line}\n" for line in body)
         + "</svg>\n"
