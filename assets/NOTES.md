@@ -38,3 +38,4 @@
 - edge case observed while testing
 - double-check exit codes behavior
 - follow up on type narrowing
+- considered config defaults; parked for now
