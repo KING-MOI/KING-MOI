@@ -114,6 +114,10 @@ def text(x, y, s, size=14, fill=FG):
     return f'<text x="{x}" y="{y}" fill="{fill}" font-size="{size}">{escape(s)}</text>'
 
 
+def label(y, s):
+    return text(32, y + 12, s, 12, MUTED)
+
+
 def pills(items, x, y):
     out = []
     for item in items:
@@ -132,7 +136,7 @@ def header(profile, y):
 
 
 def stack(profile, y):
-    return [text(32, y + 12, "stack", 12, MUTED), *pills(profile["stack"], 32, y + 24)], 70
+    return [label(y, "stack"), *pills(profile["stack"], 32, y + 24)], 70
 
 
 def stats(profile, y):
@@ -148,7 +152,7 @@ def stats(profile, y):
         ("day streak", st["streak"]),
     ]
     col_w = (WIDTH - 64) // len(cells)
-    out = [text(32, y + 12, "last year", 12, MUTED)]
+    out = [label(y, "last year")]
     for i, (label, value) in enumerate(cells):
         x = 32 + i * col_w
         out.append(text(x, y + 44, human(value), 22))
@@ -162,7 +166,7 @@ def languages(profile, y):
         return [], 0
     bar_w = WIDTH - 64
     out = [
-        text(32, y + 12, "top languages", 12, MUTED),
+        label(y, "top languages"),
         f'<clipPath id="bar"><rect x="32" y="{y + 24}" width="{bar_w}" height="8" rx="4"/></clipPath>',
     ]
     x = 32.0
@@ -181,7 +185,7 @@ def languages(profile, y):
 
 
 def now_building(profile, y):
-    out = [text(32, y + 12, "now building", 12, MUTED)]
+    out = [label(y, "now building")]
     row = y + 40
     for item in profile.get("now", []):
         out.append(text(32, row, f'▸ {item["name"]}', 14))
