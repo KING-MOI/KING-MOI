@@ -17,3 +17,4 @@
 - double-check exit codes behavior
 - slow start observed while testing
 - considered release checklist; parked for now
+- considered link checker; parked for now
