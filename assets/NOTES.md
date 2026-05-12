@@ -5,3 +5,4 @@
 - double-check config defaults behavior
 - double-check the retry path behavior
 - slow start observed while testing
+- follow up on the macOS build
