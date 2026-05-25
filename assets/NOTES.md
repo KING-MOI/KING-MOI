@@ -58,3 +58,4 @@
 - considered config defaults; parked for now
 - follow up on type narrowing
 - double-check the retry path behavior
+- edge case observed while testing
