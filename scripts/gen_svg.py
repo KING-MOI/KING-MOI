@@ -153,10 +153,10 @@ def stats(profile, y):
     ]
     col_w = (WIDTH - 64) // len(cells)
     out = [label(y, "last year")]
-    for i, (label, value) in enumerate(cells):
+    for i, (name, value) in enumerate(cells):
         x = 32 + i * col_w
         out.append(text(x, y + 44, human(value), 22))
-        out.append(text(x, y + 64, label, 12, MUTED))
+        out.append(text(x, y + 64, name, 12, MUTED))
     return out, 84
 
 

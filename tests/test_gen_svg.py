@@ -22,6 +22,17 @@ class RenderTest(unittest.TestCase):
         root = ET.fromstring(gen_svg.render(PROFILE))
         self.assertTrue(root.tag.endswith("svg"))
 
+    def test_renders_full_sample(self):
+        user = json.loads(gen_svg.SAMPLE.read_text())
+        profile = {
+            **PROFILE,
+            "stats": gen_svg.contribution_stats(user),
+            "languages": gen_svg.top_languages(user["repositories"]["nodes"]),
+        }
+        texts = [t.text for t in ET.fromstring(gen_svg.render(profile)).iter("{http://www.w3.org/2000/svg}text")]
+        self.assertIn("day streak", texts)
+        self.assertIn("top languages", texts)
+
     def test_special_chars_survive_round_trip(self):
         root = ET.fromstring(gen_svg.render(PROFILE))
         texts = [t.text for t in root.iter("{http://www.w3.org/2000/svg}text")]
