@@ -28,3 +28,4 @@
 - considered type narrowing; parked for now
 - cache miss observed while testing
 - follow up on the macOS build
+- considered the retry path; parked for now
