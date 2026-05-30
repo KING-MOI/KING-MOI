@@ -76,3 +76,4 @@
 - docs example while testing
 - double-check config defaults behavior
 - considered config defaults; parked for now
+- cleanup logic while testing
