@@ -39,7 +39,7 @@ def load_profile(path=ROOT / "profile.toml"):
 
 
 QUERY = """
-query($login: String!) {
+query($login: String!, $after: String) {
   user(login: $login) {
     contributionsCollection {
       totalCommitContributions
@@ -50,7 +50,8 @@ query($login: String!) {
         weeks { contributionDays { date contributionCount } }
       }
     }
-    repositories(first: 100, ownerAffiliations: OWNER, isFork: false) {
+    repositories(first: 100, after: $after, ownerAffiliations: OWNER, isFork: false) {
+      pageInfo { hasNextPage endCursor }
       nodes {
         stargazerCount
         languages(first: 10, orderBy: {field: SIZE, direction: DESC}) {
@@ -64,7 +65,12 @@ query($login: String!) {
 
 
 def fetch_user(login, token):
-    return graphql(QUERY, {"login": login}, token)["user"]
+    user = graphql(QUERY, {"login": login}, token)["user"]
+    page = user["repositories"]
+    while page["pageInfo"]["hasNextPage"]:
+        page = graphql(QUERY, {"login": login, "after": page["pageInfo"]["endCursor"]}, token)["user"]["repositories"]
+        user["repositories"]["nodes"] += page["nodes"]
+    return user
 
 
 def current_streak(weeks):
