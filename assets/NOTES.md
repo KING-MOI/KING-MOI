@@ -77,3 +77,4 @@
 - double-check config defaults behavior
 - considered config defaults; parked for now
 - cleanup logic while testing
+- double-check slow start behavior
