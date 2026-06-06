@@ -78,3 +78,4 @@
 - considered config defaults; parked for now
 - cleanup logic while testing
 - double-check slow start behavior
+- considered the retry path; parked for now
