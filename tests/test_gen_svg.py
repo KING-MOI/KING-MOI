@@ -1,6 +1,7 @@
 import json
 import sys
 import unittest
+from unittest import mock
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
@@ -84,6 +85,21 @@ class StreakTest(unittest.TestCase):
 
     def test_zero_when_no_contributions(self):
         self.assertEqual(gen_svg.current_streak(weeks(0, 0, 0)), 0)
+
+
+class FetchUserTest(unittest.TestCase):
+    def test_follows_repository_pages(self):
+        def page(names, cursor):
+            return {"user": {"repositories": {
+                "pageInfo": {"hasNextPage": cursor is not None, "endCursor": cursor},
+                "nodes": [{"name": n} for n in names],
+            }}}
+
+        pages = [page(["a", "b"], "c1"), page(["c"], "c2"), page(["d"], None)]
+        with mock.patch.object(gen_svg, "graphql", side_effect=pages) as gql:
+            user = gen_svg.fetch_user("someone", "t")
+        self.assertEqual([r["name"] for r in user["repositories"]["nodes"]], ["a", "b", "c", "d"])
+        self.assertEqual(gql.call_args_list[-1].args[1]["after"], "c2")
 
 
 class HumanTest(unittest.TestCase):
