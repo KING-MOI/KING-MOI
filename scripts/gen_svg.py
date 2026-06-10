@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import argparse
+import datetime
 import json
 import os
 import sys
@@ -219,6 +220,9 @@ def render(profile):
         lines, h = section(profile, y)
         body += lines
         y += h
+    if profile.get("updated"):
+        body.append(f'<text x="{WIDTH - 32}" y="{y + 8}" fill="{BORDER}" font-size="11" text-anchor="end">updated {profile["updated"]}</text>')
+        y += 16
     height = y + 16
     return (
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{WIDTH}" height="{height}" viewBox="0 0 {WIDTH} {height}" font-family="{FONT}">\n'
@@ -243,6 +247,7 @@ def main():
         user = fetch_user(profile["handle"], token)
     profile["stats"] = contribution_stats(user)
     profile["languages"] = top_languages(user["repositories"]["nodes"])
+    profile["updated"] = datetime.datetime.now(datetime.UTC).date().isoformat()
     OUT.parent.mkdir(exist_ok=True)
     OUT.write_text(render(profile))
     print(f"wrote {OUT.relative_to(ROOT)}")
