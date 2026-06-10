@@ -3,7 +3,9 @@ import argparse
 import json
 import os
 import sys
+import time
 import tomllib
+import urllib.error
 import urllib.request
 from pathlib import Path
 from xml.sax.saxutils import escape
@@ -20,14 +22,24 @@ FONT = "ui-monospace, SFMono-Regular, Menlo, monospace"
 GRAPHQL = "https://api.github.com/graphql"
 
 
-def graphql(query, variables, token):
+def graphql(query, variables, token, attempts=3):
     req = urllib.request.Request(
         GRAPHQL,
         data=json.dumps({"query": query, "variables": variables}).encode(),
         headers={"Authorization": f"bearer {token}", "User-Agent": "readme-svg"},
     )
-    with urllib.request.urlopen(req, timeout=30) as resp:
-        payload = json.load(resp)
+    for attempt in range(attempts):
+        try:
+            with urllib.request.urlopen(req, timeout=30) as resp:
+                payload = json.load(resp)
+            break
+        except urllib.error.HTTPError as e:
+            if e.code < 500 or attempt == attempts - 1:
+                raise
+        except urllib.error.URLError:
+            if attempt == attempts - 1:
+                raise
+        time.sleep(2**attempt)
     if payload.get("errors"):
         raise RuntimeError(payload["errors"][0]["message"])
     return payload["data"]
