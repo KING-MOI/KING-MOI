@@ -52,3 +52,4 @@
 - double-check link checker behavior
 - considered type narrowing; parked for now
 - considered link checker; parked for now
+- considered the retry path; parked for now
