@@ -4,3 +4,4 @@
 - edge case observed while testing
 - double-check config defaults behavior
 - double-check the retry path behavior
+- slow start observed while testing
