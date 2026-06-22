@@ -3,8 +3,16 @@ handle = "KING-MOI"
 location = "San Francisco"
 tagline = "building ai agents & devtools"
 
-stack = ["rust", "swift", "typescript"]
+stack = ["rust", "swift", "typescript", "python", "tokio", "swiftui", "react", "postgres"]
 
 [[now]]
 name = "agent runtime"
 desc = "a small, fast runtime for tool-using agents"
+
+[[now]]
+name = "devtools"
+desc = "cli + editor tooling that agents can drive"
+
+[[now]]
+name = "native apps"
+desc = "swift clients that stay out of the way"
