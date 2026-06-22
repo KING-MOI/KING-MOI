@@ -61,3 +61,4 @@
 - edge case observed while testing
 - follow up on exit codes
 - double-check error messages behavior
+- double-check docs example behavior
