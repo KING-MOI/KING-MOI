@@ -139,12 +139,15 @@ def label(y, s):
 
 def pills(items, x, y):
     out = []
+    left = x
     for item in items:
         w = len(item) * 8 + 24
+        if x + w > WIDTH - 32:
+            x, y = left, y + 34
         out.append(f'<rect x="{x}" y="{y}" width="{w}" height="26" rx="13" fill="none" stroke="{BORDER}"/>')
         out.append(text(x + 12, y + 18, item, 13))
         x += w + 8
-    return out
+    return out, y + 26
 
 
 def header(profile, y):
@@ -155,7 +158,8 @@ def header(profile, y):
 
 
 def stack(profile, y):
-    return [label(y, "stack"), *pills(profile["stack"], 32, y + 24)], 70
+    lines, bottom = pills(profile["stack"], 32, y + 24)
+    return [label(y, "stack"), *lines], bottom - y + 20
 
 
 def stats(profile, y):

@@ -40,6 +40,14 @@ class RenderTest(unittest.TestCase):
         self.assertIn("San Francisco · agents & devtools <3", texts)
 
 
+class PillsTest(unittest.TestCase):
+    def test_wraps_before_right_edge(self):
+        lines, bottom = gen_svg.pills(["typescript"] * 12, 32, 0)
+        rects = [ET.fromstring(line) for line in lines if line.startswith("<rect")]
+        self.assertTrue(all(int(r.get("x")) + int(r.get("width")) <= gen_svg.WIDTH - 32 for r in rects))
+        self.assertGreater(bottom, 26)
+
+
 def repo(*langs):
     return {"languages": {"edges": [{"size": s, "node": {"name": n, "color": "#000"}} for n, s in langs]}}
 
