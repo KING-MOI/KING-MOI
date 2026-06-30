@@ -22,3 +22,4 @@
 - follow up on exit codes
 - cache miss observed while testing
 - edge case observed while testing
+- follow up on link checker
