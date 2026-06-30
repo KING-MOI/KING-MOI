@@ -1,2 +1,3 @@
 - double-check ci caching behavior
 - slow start observed while testing
+- considered link checker; parked for now
