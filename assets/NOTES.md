@@ -8,3 +8,4 @@
 - follow up on the macOS build
 - slow start observed while testing
 - flaky test observed while testing
+- double-check the retry path behavior
