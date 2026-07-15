@@ -65,3 +65,4 @@
 - follow up on config defaults
 - double-check exit codes behavior
 - considered the macOS build; parked for now
+- double-check type narrowing behavior
