@@ -62,3 +62,4 @@
 - follow up on exit codes
 - double-check error messages behavior
 - double-check docs example behavior
+- follow up on config defaults
