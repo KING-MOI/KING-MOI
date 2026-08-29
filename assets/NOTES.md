@@ -80,3 +80,4 @@
 - double-check slow start behavior
 - considered the retry path; parked for now
 - double-check ci caching behavior
+- considered type narrowing; parked for now
