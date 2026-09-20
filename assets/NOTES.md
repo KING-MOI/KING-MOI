@@ -82,3 +82,4 @@
 - double-check ci caching behavior
 - considered type narrowing; parked for now
 - error messages while testing
+- considered error messages; parked for now
