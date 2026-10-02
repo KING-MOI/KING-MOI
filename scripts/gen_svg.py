@@ -19,6 +19,7 @@ BG = "#0d1117"
 FG = "#e6edf3"
 MUTED = "#7d8590"
 BORDER = "#30363d"
+ACCENT = "#3fb950"
 FONT = "ui-monospace, SFMono-Regular, Menlo, monospace"
 GRAPHQL = "https://api.github.com/graphql"
 
@@ -107,6 +108,7 @@ def contribution_stats(user):
         "issues": cc["totalIssueContributions"],
         "stars": sum(r["stargazerCount"] for r in user["repositories"]["nodes"]),
         "streak": current_streak(cc["contributionCalendar"]["weeks"]),
+        "weekly": [sum(d["contributionCount"] for d in w["contributionDays"]) for w in cc["contributionCalendar"]["weeks"]],
     }
 
 
@@ -183,6 +185,19 @@ def stats(profile, y):
     return out, 84
 
 
+def activity(profile, y):
+    weekly = (profile.get("stats") or {}).get("weekly")
+    if not weekly:
+        return [], 0
+    peak = max(weekly) or 1
+    step = (WIDTH - 64) / len(weekly)
+    out = [label(y, "activity")]
+    for i, count in enumerate(weekly):
+        h = max(2, round(count / peak * 40))
+        out.append(f'<rect x="{32 + i * step:.1f}" y="{y + 64 - h}" width="{step * 0.7:.1f}" height="{h}" rx="1" fill="{ACCENT if count else BORDER}"/>')
+    return out, 80
+
+
 def languages(profile, y):
     langs = profile.get("languages")
     if not langs:
@@ -220,7 +235,7 @@ def now_building(profile, y):
 def render(profile):
     body = []
     y = 24
-    for section in (header, stack, stats, languages, now_building):
+    for section in (header, stack, stats, activity, languages, now_building):
         lines, h = section(profile, y)
         body += lines
         y += h
