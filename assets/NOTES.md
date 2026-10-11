@@ -84,3 +84,4 @@
 - error messages while testing
 - considered error messages; parked for now
 - considered cleanup logic; parked for now
+- follow up on slow start
