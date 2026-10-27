@@ -1,5 +1,6 @@
 import json
 import sys
+import tempfile
 import unittest
 from unittest import mock
 import xml.etree.ElementTree as ET
@@ -38,6 +39,19 @@ class RenderTest(unittest.TestCase):
         root = ET.fromstring(gen_svg.render(PROFILE))
         texts = [t.text for t in root.iter("{http://www.w3.org/2000/svg}text")]
         self.assertIn("San Francisco · agents & devtools <3", texts)
+
+
+class LoadProfileTest(unittest.TestCase):
+    def test_repo_profile_loads(self):
+        self.assertEqual(gen_svg.load_profile()["handle"], "KING-MOI")
+
+    def test_missing_keys_are_named(self):
+        with tempfile.TemporaryDirectory() as d:
+            path = Path(d) / "profile.toml"
+            path.write_text('name = "x"\n')
+            with self.assertRaises(SystemExit) as cm:
+                gen_svg.load_profile(path)
+        self.assertIn("handle", str(cm.exception))
 
 
 class PillsTest(unittest.TestCase):

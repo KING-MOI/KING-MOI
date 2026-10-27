@@ -47,9 +47,16 @@ def graphql(query, variables, token, attempts=3):
     return payload["data"]
 
 
+REQUIRED = ("name", "handle", "location", "tagline", "stack")
+
+
 def load_profile(path=ROOT / "profile.toml"):
     with open(path, "rb") as f:
-        return tomllib.load(f)
+        profile = tomllib.load(f)
+    missing = [k for k in REQUIRED if k not in profile]
+    if missing:
+        raise SystemExit(f"{path.name}: missing {', '.join(missing)}")
+    return profile
 
 
 QUERY = """
