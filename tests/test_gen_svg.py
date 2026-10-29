@@ -124,6 +124,18 @@ class FetchUserTest(unittest.TestCase):
         self.assertEqual(gql.call_args_list[-1].args[1]["after"], "c2")
 
 
+class ActivityTest(unittest.TestCase):
+    def test_quiet_year_renders_flat_bars(self):
+        lines, _ = gen_svg.activity({"stats": {"weekly": [0, 0, 0]}}, 0)
+        bars = [ET.fromstring(line) for line in lines[1:]]
+        self.assertEqual({b.get("fill") for b in bars}, {gen_svg.BORDER})
+
+    def test_tallest_bar_is_busiest_week(self):
+        lines, _ = gen_svg.activity({"stats": {"weekly": [1, 9, 3]}}, 0)
+        heights = [float(ET.fromstring(line).get("height")) for line in lines[1:]]
+        self.assertEqual(heights.index(max(heights)), 1)
+
+
 class HumanTest(unittest.TestCase):
     def test_formats(self):
         cases = {0: "0", 999: "999", 1000: "1k", 1184: "1.2k", 12500: "12.5k"}
