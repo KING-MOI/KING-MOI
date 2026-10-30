@@ -125,10 +125,9 @@ class FetchUserTest(unittest.TestCase):
 
 
 class ActivityTest(unittest.TestCase):
-    def test_quiet_year_renders_flat_bars(self):
-        lines, _ = gen_svg.activity({"stats": {"weekly": [0, 0, 0]}}, 0)
-        bars = [ET.fromstring(line) for line in lines[1:]]
-        self.assertEqual({b.get("fill") for b in bars}, {gen_svg.BORDER})
+    def test_quiet_year_is_hidden(self):
+        self.assertEqual(gen_svg.activity({"stats": {"weekly": [0, 0, 0]}}, 0), ([], 0))
+        self.assertEqual(gen_svg.stats({"stats": {"contributions": 0}}, 0), ([], 0))
 
     def test_tallest_bar_is_busiest_week(self):
         lines, _ = gen_svg.activity({"stats": {"weekly": [1, 9, 3]}}, 0)

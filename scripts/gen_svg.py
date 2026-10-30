@@ -173,7 +173,7 @@ def stack(profile, y):
 
 def stats(profile, y):
     st = profile.get("stats")
-    if not st:
+    if not st or not st["contributions"]:
         return [], 0
     cells = [
         ("contributions", st["contributions"]),
@@ -194,9 +194,9 @@ def stats(profile, y):
 
 def activity(profile, y):
     weekly = (profile.get("stats") or {}).get("weekly")
-    if not weekly:
+    if not weekly or not any(weekly):
         return [], 0
-    peak = max(weekly) or 1
+    peak = max(weekly)
     step = (WIDTH - 64) / len(weekly)
     out = [label(y, "activity")]
     for i, count in enumerate(weekly):
