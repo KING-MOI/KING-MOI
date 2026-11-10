@@ -30,4 +30,12 @@ make test
 
 Stdlib only, Python 3.11+.
 
+**Customizing.** Edit `profile.toml`: `name`, `handle`, `location`, `tagline` and `stack`
+are required; add `[[now]]` tables (`name`, `desc`) for the "now building" list.
+Stats and activity are hidden until the year has contributions.
+
+**Private contributions.** The workflow falls back to the built-in `github.token`, which only
+sees public activity. Add a fine-grained PAT as the `STATS_TOKEN` repo secret to count
+private work too.
+
 </details>
