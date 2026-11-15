@@ -85,3 +85,4 @@
 - considered error messages; parked for now
 - considered cleanup logic; parked for now
 - follow up on slow start
+- follow up on the macOS build
