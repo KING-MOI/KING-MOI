@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/readme.svg" alt="Aditya Verma — San Francisco, building AI agents and devtools" width="800">
+  <img src="assets/readme.svg" alt="Aditya — San Francisco, building AI agents and devtools" width="800">
 </p>
 
 <p align="center">
