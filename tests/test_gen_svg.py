@@ -11,7 +11,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
 import gen_svg
 
 PROFILE = {
-    "name": "Aditya Verma",
+    "name": "Aditya",
     "location": "San Francisco",
     "tagline": "agents & devtools <3",
     "stack": ["rust", "swift"],
