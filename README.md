@@ -3,8 +3,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/KING-MOI/KING-MOI/actions/workflows/ci.yml"><img src="https://github.com/KING-MOI/KING-MOI/actions/workflows/ci.yml/badge.svg" alt="ci"></a>
-  <a href="https://github.com/KING-MOI/KING-MOI/actions/workflows/update-readme.yml"><img src="https://github.com/KING-MOI/KING-MOI/actions/workflows/update-readme.yml/badge.svg" alt="update readme"></a>
+  <a href="https://github.com/pekkaiscool/pekkaiscool/actions/workflows/ci.yml"><img src="https://github.com/pekkaiscool/pekkaiscool/actions/workflows/ci.yml/badge.svg" alt="ci"></a>
+  <a href="https://github.com/pekkaiscool/pekkaiscool/actions/workflows/update-readme.yml"><img src="https://github.com/pekkaiscool/pekkaiscool/actions/workflows/update-readme.yml/badge.svg" alt="update readme"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-30363d" alt="MIT license"></a>
 </p>
 

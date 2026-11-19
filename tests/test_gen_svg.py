@@ -43,7 +43,7 @@ class RenderTest(unittest.TestCase):
 
 class LoadProfileTest(unittest.TestCase):
     def test_repo_profile_loads(self):
-        self.assertEqual(gen_svg.load_profile()["handle"], "KING-MOI")
+        self.assertEqual(gen_svg.load_profile()["handle"], "pekkaiscool")
 
     def test_missing_keys_are_named(self):
         with tempfile.TemporaryDirectory() as d:
